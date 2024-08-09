@@ -1,118 +1,67 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { View, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
+import Splash from './src/Splash';
+import Slider from './src/Slider';
+import Sign from './src/Sign';
+import SignUp from './src/SignUp';
+import Forgot from './src/Forgot';
+import Screen1 from './src/Screen1'
+import Home from './src/Home';
+import Wallet from './src/Wallet';
+import Check from './src/Check';
+import CheckOut from './src/CheckOut';
+import Shopping from './src/Shopping';
+import Cart from './src/Cart';
+import Payment from './src/Payment';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import BottomNavigation from './src/BottomNavigation';
+import Screen2 from './src/Screen2';
+import Specific from './src/Specific';
+const Stack = createNativeStackNavigator();
+const Bottom =createBottomTabNavigator()
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const App = () => {
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  const [splash, setsplash] = useState(true)
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setsplash(false)
+    }, 3000);
+  }, [])
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+  
+
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Splash' screenOptions={{headerShown:false}}>
+     {splash?
+        <Stack.Screen name='Splash' component={Splash} />
+      :  
+        <Stack.Screen name='Slider' component={Slider} />
+     }
+       <Stack.Screen name='Sign' component={Sign} />
+       <Stack.Screen name='SignUp' component={SignUp} />
+       <Stack.Screen name='Forgot' component={Forgot} />
+       <Stack.Screen name='Screen1' component={Screen1} />
+       <Stack.Screen name='bottom' component={BottomNavigation}/>
+       <Stack.Screen name='Home' component={Home} />
+       <Stack.Screen name='Specific' component={Specific}/>
+
+       <Stack.Screen name='Wallet' component={Wallet} />
+       <Stack.Screen name='Cart' component={Cart} />
+       <Stack.Screen name='Check' component={Check} />
+       <Stack.Screen name='CheckOut' component={CheckOut} />
+       <Stack.Screen name='Shopping' component={Shopping}/>
+       <Stack.Screen name='Payment' component={Payment}/>
+
+
+    </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+export default App
